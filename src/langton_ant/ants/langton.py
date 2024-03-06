@@ -35,3 +35,7 @@ class LangtonAnt:
             self.y -= 1
         elif self.dir == "r":
             self.x += 1
+
+    def translate(self, x_offset, y_offset):
+        self.x = self.x + x_offset
+        self.y = self.y + y_offset
