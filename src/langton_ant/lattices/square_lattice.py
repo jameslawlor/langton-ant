@@ -19,14 +19,38 @@ class SquareLattice:
         else:
             self.black_squares.append((x,y))
 
-    def find_grid_boundaries(self):
-        if self.black_squares:
-            min_x = min([x for (x,y) in self.black_squares])
-            max_x = max([x for (x,y) in self.black_squares])
-            min_y = min([y for (x,y) in self.black_squares])
-            max_y = max([y for (x,y) in self.black_squares])
+    def get_y_min(self):
+        return min([y for (_,y) in self.black_squares])
+    
+    def get_y_max(self):
+        return max([y for (_,y) in self.black_squares])
 
-            return (min_x, max_x, min_y, max_y)
-        
+    def get_x_min(self):
+        return min([x for (x,_) in self.black_squares])
+    
+    def get_x_max(self):
+        return max([x for (x,_) in self.black_squares])
+
+    def translate_to_positive_quadrant(self):
+        """
+        coordinate shift all black squares
+        to +ive quadrant for plotting 
+        """
+        if self.get_x_min() < 0:
+            self.x_offset = abs(self.get_x_min())
         else:
-            return (None, None, None, None)
+            self.x_offset = 0
+        
+        if self.get_y_min() < 0:
+            self.y_offset = abs(self.get_y_min())
+        else:
+            self.y_offset = 0
+
+        translated_squares = []
+
+        for (x,y) in self.black_squares:
+            x_shifted = x + self.x_offset
+            y_shifted = y + self.y_offset
+            translated_squares.append((x_shifted, y_shifted))
+
+        self.black_squares = translated_squares
