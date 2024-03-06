@@ -1,0 +1,34 @@
+[project]
+name = "langton-ant"
+version = "0.0.1"
+authors = [
+  { name="James Lawlor", email="jameslawlor1987@gmail.com" },
+]
+description = "Langton's Ant"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/jameslawlor/langton-ant"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/langton_ant"]
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = [
+    "--import-mode=importlib",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
