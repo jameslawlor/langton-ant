@@ -6,11 +6,10 @@ from matplotlib.colors import ListedColormap
 
 cmap = ListedColormap(["white", "black", "red"])
 
-class Plotter:
 
+class Plotter:
     def __init__(self):
         self.ant = None
-
 
     def plot(self, ant, n_steps, mode):
         if mode == "static":
@@ -18,7 +17,6 @@ class Plotter:
 
         elif mode == "animate":
             self.animate(ant, n_steps)
-
 
     def static_plot(
         self,
@@ -40,9 +38,7 @@ class Plotter:
         )
         plt.show()
 
-
     def animate(self, ant, n_steps):
-
         INTERVAL = 0
 
         fig = plt.figure()
@@ -61,7 +57,7 @@ class Plotter:
             im.set_data(data)
             return [im]
 
-        anim = FuncAnimation(
+        anim = FuncAnimation(  # noqa: F841
             fig,
             partial(update, ant=ant),
             frames=n_steps,
