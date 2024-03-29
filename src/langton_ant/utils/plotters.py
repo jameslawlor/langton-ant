@@ -2,10 +2,7 @@ import matplotlib.pylab as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 from functools import partial
-from matplotlib.colors import ListedColormap
-
-cmap = ListedColormap(["white", "black", "red"])
-
+from langton_ant.constants import CMAP, ANIMATION_INTERVAL
 
 class Plotter:
     def __init__(self):
@@ -34,12 +31,11 @@ class Plotter:
             interpolation="none",
             vmin=0,
             vmax=2,
-            cmap=cmap,
+            cmap=CMAP,
         )
         plt.show()
 
     def animate(self, ant, n_steps):
-        INTERVAL = 0
 
         fig = plt.figure()
         im = plt.imshow(
@@ -47,7 +43,7 @@ class Plotter:
             interpolation="none",
             vmin=0,
             vmax=2,
-            cmap=cmap,
+            cmap=CMAP,
         )
 
         def update(step, ant):
@@ -61,7 +57,7 @@ class Plotter:
             fig,
             partial(update, ant=ant),
             frames=n_steps,
-            interval=INTERVAL,
+            interval=ANIMATION_INTERVAL,
             blit=True,
             repeat=False,
         )
