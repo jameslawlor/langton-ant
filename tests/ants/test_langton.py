@@ -1,10 +1,9 @@
-import pytest
 from langton_ant.ants.langton import LangtonAnt
 
 import unittest
 
-class LangtonAntTest(unittest.TestCase):
 
+class LangtonAntTest(unittest.TestCase):
     def test_initial_state(self):
         """
         Tests the initial state of the Langton ant.
@@ -96,6 +95,24 @@ class LangtonAntTest(unittest.TestCase):
         ant.dir = "r"
         ant.move()
         self.assertEqual(ant.x, 1)
+        self.assertEqual(ant.y, 0)
+
+    def test_init_grid(self):
+        """
+        Test grid initialisation
+        """
+        ant = LangtonAnt()
+        ant.init_grid(canvas_size=4)
+        self.assertEqual(ant.x, 2)
+        self.assertEqual(ant.y, 2)
+
+    def test_init_grid_no_offset(self):
+        """
+        Test grid initialisation without offseting ant position
+        """
+        ant = LangtonAnt()
+        ant.init_grid(canvas_size=4, offset=False)
+        self.assertEqual(ant.x, 0)
         self.assertEqual(ant.y, 0)
 
 if __name__ == "__main__":
