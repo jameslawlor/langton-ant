@@ -3,7 +3,8 @@ from langton_ant.utils.plotters import Plotter
 
 CANVAS_SIZE = 128
 N_STEPS = 11000
-PLOT_MODE = 'animate'
+PLOT_MODE = "animate"
+
 
 def main():
     ant = LangtonAnt()
@@ -11,11 +12,7 @@ def main():
     ant.init_grid(canvas_size=CANVAS_SIZE)
 
     plotter = Plotter()
-    plotter.plot(
-        ant=ant, 
-        n_steps=N_STEPS, 
-        mode=PLOT_MODE
-        )
+    plotter.plot(ant=ant, n_steps=N_STEPS, mode=PLOT_MODE)
 
 
 if __name__ == "__main__":

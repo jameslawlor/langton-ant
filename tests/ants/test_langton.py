@@ -115,5 +115,6 @@ class LangtonAntTest(unittest.TestCase):
         self.assertEqual(ant.x, 0)
         self.assertEqual(ant.y, 0)
 
+
 if __name__ == "__main__":
     unittest.main()
