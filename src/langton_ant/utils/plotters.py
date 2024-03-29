@@ -42,14 +42,14 @@ class Plotter:
             ant.grid,
             interpolation="none",
             vmin=0,
-            vmax=2,
-            cmap=CMAP,
+            vmax=ant.n_colours+1,
+            cmap=ant.cmap,
         )
 
         def update(step, ant):
             ant.update()
             data = np.array(ant.grid)
-            data[ant.x][ant.y] = 2
+            data[ant.x][ant.y] = ant.n_colours+1
             im.set_data(data)
             return [im]
 
