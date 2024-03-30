@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pylab as plt
+from langton_ant.constants import CMAP, RULESET
 """
 The colors are modified in a cyclic fashion. 
 A simple naming scheme is used: for each of the successive colors, 
@@ -14,14 +15,16 @@ class LangtonAnt:
         x0=0,
         y0=0,
         dir0="u",
-        ruleset='RRLLLRLLLRRR',
+        ruleset=RULESET,
     ):
         self.x = x0
         self.y = y0
         self.dir = dir0
         self.parse_ruleset(ruleset)
 
-
+    def __str__(self):
+        return str(vars(self))
+    
     def turn_clockwise(self):
         if self.dir == "u":
             self.dir = "r"
@@ -42,9 +45,6 @@ class LangtonAnt:
         elif self.dir == "r":
             self.dir = "u"
 
-    def __str__(self):
-        return str(vars(self))
-    
     def rule_to_func(self, rule):
         if rule == "R":
             return self.turn_clockwise
@@ -55,7 +55,7 @@ class LangtonAnt:
     def parse_ruleset(self, ruleset):
         # TODO: Check validity
         
-        self.cmap = plt.get_cmap('tab20c')
+        self.cmap = plt.get_cmap(CMAP)
         colours= self.cmap(np.linspace(0.0, 255, len(ruleset)))
 
         self.rules = {}

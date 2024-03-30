@@ -24,14 +24,14 @@ class Plotter:
             ant.update()
 
         data = np.array(ant.grid)
-        data[ant.x][ant.y] = 2
+        data[ant.x][ant.y] = ant.n_colours+1
         plt.figure()
         plt.imshow(
             data,
             interpolation="none",
             vmin=0,
-            vmax=2,
-            cmap=CMAP,
+            vmax=ant.n_colours+1,
+            cmap=ant.cmap,
         )
         plt.show()
 
