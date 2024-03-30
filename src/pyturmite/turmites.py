@@ -1,17 +1,17 @@
 import numpy as np
 import matplotlib.pylab as plt
-from langton_ant.constants import CMAP, RULESET
+from pyturmite.constants import CMAP, RULESET
 
 """
 The colors are modified in a cyclic fashion. 
 A simple naming scheme is used: for each of the successive colors, 
 a letter "L" or "R" is used to indicate whether a left or right turn 
 should be taken. 
-Langton's ant has the name "RL" in this naming scheme.
+Langton's turmite has the name "RL" in this naming scheme.
 """
 
 
-class LangtonAnt:
+class Turmite:
     def __init__(
         self,
         x0=0,

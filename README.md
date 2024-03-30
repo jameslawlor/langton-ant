@@ -8,9 +8,9 @@ https://github.com/jameslawlor/pyturmite/assets/3987960/072c9380-4971-4256-a6bf-
 
 # Usage
 
-Set run parameters in `src/langton_ant/constants.py`
+Set run parameters in `src/pyturmite/constants.py`
 ```
 pip install -r requirements.txt
 pip install -e .
-python src/langton_ant/main.py
+python src/pyturmite/main.py
 ```
