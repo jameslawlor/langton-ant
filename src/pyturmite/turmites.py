@@ -104,10 +104,10 @@ class Turmite:
 
         # expand canvas/grid if we moved outside it
         if (
-            (self.x >= self.grid.shape[0]) or
-            (self.x < 0) or
-            (self.y >= self.grid.shape[1]) or
-            (self.y < 0)        
+            (self.x >= self.grid.shape[0])
+            or (self.x < 0)
+            or (self.y >= self.grid.shape[1])
+            or (self.y < 0)
         ):
             self.expand_grid()
 
