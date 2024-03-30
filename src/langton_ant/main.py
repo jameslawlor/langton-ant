@@ -10,11 +10,7 @@ def main():
     ant.init_grid(canvas_size=args.canvas_size)
 
     plotter = Plotter()
-    plotter.plot(
-        ant=ant, 
-        n_steps=args.n_steps, 
-        mode=args.plot_mode
-        )
+    plotter.plot(ant=ant, n_steps=args.n_steps, mode=args.plot_mode)
 
 
 if __name__ == "__main__":
