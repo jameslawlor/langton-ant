@@ -1,6 +1,6 @@
 import matplotlib.pylab as plt
 import numpy as np
-from matplotlib.animation import FuncAnimation
+from matplotlib.animation import FuncAnimation, PillowWriter
 from functools import partial
 from langton_ant.constants import CMAP, ANIMATION_INTERVAL
 
@@ -38,6 +38,7 @@ class Plotter:
     def animate(self, ant, n_steps):
 
         fig = plt.figure()
+        
         im = plt.imshow(
             ant.grid,
             interpolation="none",
@@ -45,9 +46,10 @@ class Plotter:
             vmax=ant.n_colours+1,
             cmap=ant.cmap,
         )
-
-        def update(step, ant):
-            ant.update()
+        plt.axis('off')
+        def update(step, ant, skip=5):
+            for _ in range(skip):
+                ant.update()
             data = np.array(ant.grid)
             data[ant.x][ant.y] = ant.n_colours+1
             im.set_data(data)
@@ -55,11 +57,22 @@ class Plotter:
 
         anim = FuncAnimation(  # noqa: F841
             fig,
-            partial(update, ant=ant),
+            partial(update, ant=ant,),
             frames=n_steps,
             interval=ANIMATION_INTERVAL,
             blit=True,
             repeat=False,
         )
 
-        plt.show()
+        # writer = PillowWriter(
+        #     fps=30,
+        #     )
+        
+        anim.save(
+            'example.mp4', 
+            writer="ffmpeg",
+            fps=120,
+            progress_callback=lambda i, n: print(f'Saving frame {i}/{n}')
+        )
+
+        # plt.show()

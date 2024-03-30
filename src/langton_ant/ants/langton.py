@@ -56,7 +56,9 @@ class LangtonAnt:
         # TODO: Check validity
         
         self.cmap = plt.get_cmap(CMAP)
-        colours= self.cmap(np.linspace(0.0, 255, len(ruleset)))
+        colours= self.cmap(
+            np.linspace(.0, 1, len(ruleset))
+        )
 
         self.rules = {}
 
@@ -67,8 +69,7 @@ class LangtonAnt:
         }
             
         self.n_colours = len(colours)
-        # self.cmap = colours
-
+        
 
     def init_grid(self, canvas_size, offset=True):
 
