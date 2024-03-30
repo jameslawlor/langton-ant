@@ -46,6 +46,17 @@ class Plotter:
             vmax=turmite.n_colours + 1,
             cmap=turmite.cmap,
         )
+        ax = plt.gca()
+        frame_num = ax.text(
+            0.99, 
+            0.01,
+            '',
+            fontsize=5,
+            horizontalalignment='right',
+            verticalalignment='bottom',
+            transform=ax.transAxes,
+            )
+        frame_num.set_bbox(dict(facecolor='white', alpha=0.3, edgecolor='black', lw=.1))
         plt.axis("off")
 
         def update(step, turmite, skip=FRAME_SKIP):
@@ -54,7 +65,8 @@ class Plotter:
             data = np.array(turmite.grid)
             data[turmite.x][turmite.y] = turmite.n_colours + 1
             im.set_data(data)
-            return [im]
+            frame_num.set_text(f"Step: {step*skip:,}")
+            return [im, frame_num]
 
         anim = FuncAnimation(  # noqa: F841
             fig,
