@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pylab as plt
-from pyturmite.constants import CMAP, RULESET
+from pyturmite.constants import CMAP, RULESET, PADDING_SIZE
 
 """
 The colors are modified in a cyclic fashion. 
@@ -101,3 +101,17 @@ class Turmite:
         self.turn(colour)
         self.change_colour(self.x, self.y)
         self.move()
+
+        # expand canvas/grid if we moved outside it
+        if (
+            (self.x >= self.grid.shape[0]) or
+            (self.x < 0) or
+            (self.y >= self.grid.shape[1]) or
+            (self.y < 0)        
+        ):
+            self.expand_grid()
+
+    def expand_grid(self):
+        self.grid = np.pad(self.grid, PADDING_SIZE)
+        self.x += PADDING_SIZE
+        self.y += PADDING_SIZE
