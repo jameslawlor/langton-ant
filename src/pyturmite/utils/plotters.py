@@ -2,57 +2,57 @@ import matplotlib.pylab as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 from functools import partial
-from langton_ant.constants import ANIMATION_INTERVAL
+from pyturmite.constants import ANIMATION_INTERVAL
 
 
 class Plotter:
     def __init__(self):
-        self.ant = None
+        self.turmite = None
 
-    def plot(self, ant, n_steps, mode):
+    def plot(self, turmite, n_steps, mode):
         if mode == "static":
-            self.static_plot(ant, n_steps)
+            self.static_plot(turmite, n_steps)
 
         elif mode == "animate":
-            self.animate(ant, n_steps)
+            self.animate(turmite, n_steps)
 
     def static_plot(
         self,
-        ant,
+        turmite,
         N_STEPS,
     ):
         for _ in range(N_STEPS):
-            ant.update()
+            turmite.update()
 
-        data = np.array(ant.grid)
-        data[ant.x][ant.y] = ant.n_colours + 1
+        data = np.array(turmite.grid)
+        data[turmite.x][turmite.y] = turmite.n_colours + 1
         plt.figure()
         plt.imshow(
             data,
             interpolation="none",
             vmin=0,
-            vmax=ant.n_colours + 1,
-            cmap=ant.cmap,
+            vmax=turmite.n_colours + 1,
+            cmap=turmite.cmap,
         )
         plt.show()
 
-    def animate(self, ant, n_steps):
+    def animate(self, turmite, n_steps):
         fig = plt.figure()
 
         im = plt.imshow(
-            ant.grid,
+            turmite.grid,
             interpolation="none",
             vmin=0,
-            vmax=ant.n_colours + 1,
-            cmap=ant.cmap,
+            vmax=turmite.n_colours + 1,
+            cmap=turmite.cmap,
         )
         plt.axis("off")
 
-        def update(step, ant, skip=5):
+        def update(step, turmite, skip=5):
             for _ in range(skip):
-                ant.update()
-            data = np.array(ant.grid)
-            data[ant.x][ant.y] = ant.n_colours + 1
+                turmite.update()
+            data = np.array(turmite.grid)
+            data[turmite.x][turmite.y] = turmite.n_colours + 1
             im.set_data(data)
             return [im]
 
@@ -60,7 +60,7 @@ class Plotter:
             fig,
             partial(
                 update,
-                ant=ant,
+                turmite=turmite,
             ),
             frames=n_steps,
             interval=ANIMATION_INTERVAL,

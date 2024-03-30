@@ -1,12 +1,12 @@
 [project]
-name = "langton-ant"
+name = "pyturmite"
 version = "0.0.1"
 authors = [
   { name="James Lawlor", email="jameslawlor1987@gmail.com" },
 ]
-description = "Langton's Ant"
+description = "A package for generating turmites in Python"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -14,14 +14,14 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/jameslawlor/langton-ant"
+Homepage = "https://github.com/jameslawlor/pyturmite"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/langton_ant"]
+packages = ["src/pyturmite"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"

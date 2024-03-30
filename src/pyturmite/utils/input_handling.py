@@ -1,5 +1,5 @@
 import argparse
-from langton_ant.constants import (
+from pyturmite.constants import (
     CANVAS_SIZE,
     N_STEPS,
     PLOT_MODE,
