@@ -2,7 +2,7 @@ import matplotlib.pylab as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 from functools import partial
-from pyturmite.constants import ANIMATION_INTERVAL
+from pyturmite.constants import ANIMATION_INTERVAL, SAVE_ANIMATION, FRAME_SKIP
 
 
 class Plotter:
@@ -48,7 +48,7 @@ class Plotter:
         )
         plt.axis("off")
 
-        def update(step, turmite, skip=5):
+        def update(step, turmite, skip=FRAME_SKIP):
             for _ in range(skip):
                 turmite.update()
             data = np.array(turmite.grid)
@@ -68,15 +68,12 @@ class Plotter:
             repeat=False,
         )
 
-        # writer = PillowWriter(
-        #     fps=30,
-        #     )
+        if SAVE_ANIMATION:
+            anim.save(
+                "example.mp4",
+                writer="ffmpeg",
+                fps=120,
+                progress_callback=lambda i, n: print(f"Saving frame {i}/{n}"),
+            )
 
-        anim.save(
-            "example.mp4",
-            writer="ffmpeg",
-            fps=120,
-            progress_callback=lambda i, n: print(f"Saving frame {i}/{n}"),
-        )
-
-        # plt.show()
+        plt.show()
