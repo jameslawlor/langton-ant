@@ -1,9 +1,14 @@
 CANVAS_SIZE = 8
-N_STEPS = 6000
+N_STEPS = 12000
 PLOT_MODE = "animate"
 CMAP = "Oranges"
-RULESET = "RLLR"
+RULESET = "classic"  # 'classic' or 'stateful'
+INSTRUCTIONS = "RL"  #  "Classic" instructions format
+# INSTRUCTIONS = [                    # triplet notation (write colour, turn instruction, next state)
+#     [(1, 'R', 0),(1, 'R', 1)],     # one state per row, one colour per tuple
+#     [(0, 'N', 0),(0, 'N', 1)],
+# ]
 ANIMATION_INTERVAL = 1
 PADDING_SIZE = 2  # expand in each direction by this amount of cells
 SAVE_ANIMATION = False
-FRAME_SKIP = 5
+FRAME_SKIP = 1

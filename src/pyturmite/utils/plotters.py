@@ -1,7 +1,8 @@
 import matplotlib.pylab as plt
-import numpy as np
 from matplotlib.animation import FuncAnimation
 from functools import partial
+import numpy as np
+
 from pyturmite.constants import ANIMATION_INTERVAL, SAVE_ANIMATION, FRAME_SKIP
 
 
@@ -48,15 +49,17 @@ class Plotter:
         )
         ax = plt.gca()
         frame_num = ax.text(
-            0.99, 
+            0.99,
             0.01,
-            '',
+            "",
             fontsize=5,
-            horizontalalignment='right',
-            verticalalignment='bottom',
+            horizontalalignment="right",
+            verticalalignment="bottom",
             transform=ax.transAxes,
-            )
-        frame_num.set_bbox(dict(facecolor='white', alpha=0.3, edgecolor='black', lw=.1))
+        )
+        frame_num.set_bbox(
+            dict(facecolor="white", alpha=0.3, edgecolor="black", lw=0.1)
+        )
         plt.axis("off")
 
         def update(step, turmite, skip=FRAME_SKIP):
