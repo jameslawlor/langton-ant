@@ -1,7 +1,8 @@
 import matplotlib.pylab as plt
-import numpy as np
 from matplotlib.animation import FuncAnimation
 from functools import partial
+import numpy as np
+
 from pyturmite.constants import ANIMATION_INTERVAL, SAVE_ANIMATION, FRAME_SKIP
 
 
