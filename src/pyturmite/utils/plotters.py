@@ -7,22 +7,25 @@ from pyturmite.constants import ANIMATION_INTERVAL, SAVE_ANIMATION, FRAME_SKIP
 
 
 class Plotter:
-    def __init__(self):
+    def __init__(self, mode):
         self.turmite = None
+        self.mode = mode
+        self.plot = self.get_plotting_function()
 
-    def plot(self, turmite, n_steps, mode):
-        if mode == "static":
-            self.static_plot(turmite, n_steps)
-
-        elif mode == "animate":
-            self.animate(turmite, n_steps)
+    def get_plotting_function(self):
+        if self.mode == "static":
+            return self.static_plot
+        elif self.mode == "animate":
+            return self.animate
+        else:
+            raise KeyError("Plotting mode not supported!")
 
     def static_plot(
         self,
         turmite,
-        N_STEPS,
+        n_steps,
     ):
-        for _ in range(N_STEPS):
+        for _ in range(n_steps):
             turmite.update()
 
         data = np.array(turmite.grid)

@@ -11,9 +11,8 @@ def main():
         turmite = StatefulTurmite()
 
     turmite.init_grid(canvas_size=args.canvas_size)
-
-    plotter = Plotter()
-    plotter.plot(turmite=turmite, n_steps=args.n_steps, mode=args.plot_mode)
+    plotter = Plotter(mode=args.plot_mode)
+    plotter.plot(turmite=turmite, n_steps=args.n_steps)
 
 
 if __name__ == "__main__":
