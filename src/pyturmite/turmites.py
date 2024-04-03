@@ -164,7 +164,9 @@ class ClassicTurmite(Turmite):
         colour_to_instruction_mapping = self.colour_to_instruction_mappings[colour]
         instruction = colour_to_instruction_mapping["instruction"]
         self.movement_history.append(instruction)
-        turn_instruction_function = colour_to_instruction_mapping["instruction_function"]
+        turn_instruction_function = colour_to_instruction_mapping[
+            "instruction_function"
+        ]
         turn_instruction_function()
 
     def update(self):

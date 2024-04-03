@@ -28,7 +28,7 @@ class Plotter:
     ):
         for _ in range(n_steps):
             turmite.update()
-      
+
         data = np.array(turmite.grid)
         data[turmite.x][turmite.y] = turmite.n_colours + 1
         plt.figure()
@@ -43,10 +43,12 @@ class Plotter:
 
         if plot_history:
             colour_history = turmite.colour_history
-            step_list = range(1,len(colour_history))
-            cumulative_average_of_colours_visited = [np.mean(colour_history[:_]) for _ in step_list]
+            step_list = range(1, len(colour_history))
+            cumulative_average_of_colours_visited = [
+                np.mean(colour_history[:_]) for _ in step_list
+            ]
             plt.plot(step_list, cumulative_average_of_colours_visited)
-            plt.xscale('log')
+            plt.xscale("log")
             plt.ylabel("Cumulative average of visited square colour")
             plt.xlabel("Number of steps")
             plt.show()
