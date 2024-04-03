@@ -1,5 +1,5 @@
 CANVAS_SIZE = 8
-N_STEPS = 12000
+N_STEPS = 20000
 PLOT_MODE = "animate"  # animate | static
 CMAP = "Oranges"
 RULESET = "classic"  # 'classic' or 'stateful'

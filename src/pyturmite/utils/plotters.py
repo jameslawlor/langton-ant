@@ -24,6 +24,7 @@ class Plotter:
         self,
         turmite,
         n_steps,
+        plot_history=False,
     ):
         for _ in range(n_steps):
             turmite.update()
@@ -39,6 +40,18 @@ class Plotter:
             cmap=turmite.cmap,
         )
         plt.show()
+
+        if plot_history:
+            colour_history = turmite.colour_history
+            step_list = range(1, len(colour_history))
+            cumulative_average_of_colours_visited = [
+                np.mean(colour_history[:_]) for _ in step_list
+            ]
+            plt.plot(step_list, cumulative_average_of_colours_visited)
+            plt.xscale("log")
+            plt.ylabel("Cumulative average of visited square colour")
+            plt.xlabel("Number of steps")
+            plt.show()
 
     def animate(self, turmite, n_steps):
         fig = plt.figure()

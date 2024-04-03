@@ -35,6 +35,8 @@ class Turmite:
         self.cmap = plt.get_cmap(CMAP)
         self.n_colours = 0
         self.parse_instructions(instructions)
+        self.movement_history = []
+        self.colour_history = []
 
     def __str__(self):
         return str(vars(self))
@@ -147,17 +149,25 @@ class ClassicTurmite(Turmite):
         colours = self.cmap(np.linspace(0.0, 1, len(instructions)))
         self.n_colours = len(colours)
 
-        self.instructions = {
+        self.colour_to_instruction_mappings = {
             ix: {
                 "colour": colours[ix],
-                "instruction": self.instruction_to_func(instruction),
+                "instruction": instruction,
+                "instruction_function": self.instruction_to_func(instruction),
             }
             for ix, instruction in enumerate(instructions)
         }
 
     def turn(self, colour):
-        turn_instruction = self.instructions[colour]["instruction"]
-        turn_instruction()
+        self.colour_history.append(colour)
+
+        colour_to_instruction_mapping = self.colour_to_instruction_mappings[colour]
+        instruction = colour_to_instruction_mapping["instruction"]
+        self.movement_history.append(instruction)
+        turn_instruction_function = colour_to_instruction_mapping[
+            "instruction_function"
+        ]
+        turn_instruction_function()
 
     def update(self):
         colour = self.check_square_colour(self.x, self.y)
@@ -187,10 +197,10 @@ class StatefulTurmite(Turmite):
         colours = self.cmap(np.linspace(0.0, 1, len(input_instructions[0])))
         self.n_colours = len(colours)
         self.n_states = len(input_instructions)
-        self.instructions = np.array(input_instructions)
+        self.instruction_mappings = np.array(input_instructions)
 
     def turn(self, colour, state):
-        colour_state_tuple = self.instructions[state][colour]
+        colour_state_tuple = self.instruction_mappings[state][colour]
 
         # change state
         self.state = int(colour_state_tuple[-1])
