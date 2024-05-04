@@ -1,0 +1,4 @@
+cmap: "Oranges"
+plot_mode: "static"
+canvas_size: 8
+padding_size: 2  # expand in each direction by this amount of cells

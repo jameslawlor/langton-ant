@@ -1,0 +1,7 @@
+cmap: "Oranges"
+plot_mode: "animate"
+canvas_size: 8
+padding_size: 2  # expand in each direction by this amount of cells
+animation_interval: 1
+save_animation: False
+frame_skip: 1
