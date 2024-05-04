@@ -14,14 +14,12 @@ def main():
     elif config.ruleset == "stateful":
         turmite = StatefulTurmite()
 
-    turmite.init_grid(
-        canvas_size=config.canvas_size,
-    )
     turmite.load(
         instructions=config.instructions,
         padding_size=config.padding_size,
         ruleset=config.ruleset,
         cmap_str=config.cmap,
+        canvas_size=config.canvas_size,
     )
 
     plotter = Plotter(

@@ -125,12 +125,14 @@ class Turmite:
     def turn(self, *args):
         raise NotImplementedError("turn method not implemented in base turmite class!")
 
-    def load(self, instructions, padding_size, ruleset, cmap_str):
+    def load(self, instructions, padding_size, ruleset, cmap_str, canvas_size):
         self.instructions = instructions
         self.parse_instructions(instructions)
         self.padding_size = padding_size
         self.ruleset = ruleset
         self.cmap = plt.get_cmap(cmap_str)
+        self.canvas_size = canvas_size
+        self.init_grid(canvas_size)
 
 
 class ClassicTurmite(Turmite):
