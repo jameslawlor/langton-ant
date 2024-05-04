@@ -106,5 +106,5 @@ class Plotter:
                 fps=120,
                 progress_callback=lambda i, n: print(f"Saving frame {i}/{n}"),
             )
-
-        plt.show()
+        else:
+            plt.show()
