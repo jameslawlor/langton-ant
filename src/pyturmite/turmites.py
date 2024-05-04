@@ -207,7 +207,6 @@ class StatefulTurmite(Turmite):
         # change colour
         colour_to_write = int(colour_state_tuple[0])
         self.grid[self.x, self.y] = colour_to_write
-        print(colour, state, colour_state_tuple, colour_to_write, self.state)
         # move instruction
         instruction = colour_state_tuple[1]
         self.instruction_to_func(instruction)()
