@@ -1,11 +1,5 @@
 import numpy as np
 import matplotlib.pylab as plt
-from pyturmite.constants import (
-    CMAP,
-    RULESET,
-    PADDING_SIZE,
-    INSTRUCTIONS,
-)
 
 
 class Direction:
@@ -22,21 +16,18 @@ class Turmite:
 
     def __init__(
         self,
-        x0=0,
-        y0=0,
-        initial_direction=Direction.U,
-        instructions=INSTRUCTIONS,
-        ruleset=RULESET,
     ):
-        self.x = x0
-        self.y = y0
-        self.dir = initial_direction
-        self.ruleset = ruleset
-        self.cmap = plt.get_cmap(CMAP)
+        self.x = 0
+        self.y = 0
+        self.dir = Direction.U
+        self.ruleset = None
+        self.cmap_str = ""
+        self.cmap = plt.get_cmap()
         self.n_colours = 0
-        self.parse_instructions(instructions)
+        self.instructions = None
         self.movement_history = []
         self.colour_history = []
+        self.padding_size = 0
 
     def __str__(self):
         return str(vars(self))
@@ -119,9 +110,9 @@ class Turmite:
             or (self.y >= self.grid.shape[1])
             or (self.y < 0)
         ):
-            self.grid = np.pad(self.grid, PADDING_SIZE)
-            self.x += PADDING_SIZE
-            self.y += PADDING_SIZE
+            self.grid = np.pad(self.grid, self.padding_size)
+            self.x += self.padding_size
+            self.y += self.padding_size
 
     def update(self):
         raise NotImplementedError(
@@ -133,6 +124,13 @@ class Turmite:
 
     def turn(self, *args):
         raise NotImplementedError("turn method not implemented in base turmite class!")
+
+    def load(self, instructions, padding_size, ruleset, cmap_str):
+        self.instructions = instructions
+        self.parse_instructions(instructions)
+        self.padding_size = padding_size
+        self.ruleset = ruleset
+        self.cmap = plt.get_cmap(cmap_str)
 
 
 class ClassicTurmite(Turmite):
@@ -193,7 +191,7 @@ class StatefulTurmite(Turmite):
         col = colour
         """
         # TODO: Check validity
-        self.cmap = plt.get_cmap(CMAP)
+        self.cmap = plt.get_cmap(self.cmap)
         colours = self.cmap(np.linspace(0.0, 1, len(input_instructions[0])))
         self.n_colours = len(colours)
         self.n_states = len(input_instructions)

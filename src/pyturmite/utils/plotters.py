@@ -5,9 +5,12 @@ import numpy as np
 
 
 class Plotter:
-    def __init__(self, mode):
+    def __init__(self, mode, animation_interval, save_animation, frame_skip):
         self.turmite = None
         self.mode = mode
+        self.animation_interval = animation_interval
+        self.save_animation = save_animation
+        self.frame_skip = frame_skip
         self.plot = self.get_plotting_function()
 
     def get_plotting_function(self):
@@ -51,7 +54,7 @@ class Plotter:
             plt.xlabel("Number of steps")
             plt.show()
 
-    def animate(self, turmite, n_steps, animation_interval, save_animation):
+    def animate(self, turmite, n_steps):
         fig = plt.figure()
 
         im = plt.imshow(
@@ -79,14 +82,13 @@ class Plotter:
         def update(
             step,
             turmite,
-            skip,
         ):
-            for _ in range(skip):
+            for _ in range(self.frame_skip):
                 turmite.update()
             data = np.array(turmite.grid)
             data[turmite.x][turmite.y] = turmite.n_colours + 1
             im.set_data(data)
-            frame_num.set_text(f"Step: {step*skip:,}")
+            frame_num.set_text(f"Step: {step*self.frame_skip:,}")
             return [im, frame_num]
 
         anim = FuncAnimation(  # noqa: F841
@@ -96,12 +98,12 @@ class Plotter:
                 turmite=turmite,
             ),
             frames=n_steps,
-            interval=animation_interval,
+            interval=self.animation_interval,
             blit=True,
             repeat=False,
         )
 
-        if save_animation:
+        if self.save_animation:
             anim.save(
                 "example.mp4",
                 writer="ffmpeg",
