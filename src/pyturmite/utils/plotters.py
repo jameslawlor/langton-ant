@@ -3,8 +3,6 @@ from matplotlib.animation import FuncAnimation
 from functools import partial
 import numpy as np
 
-from pyturmite.constants import ANIMATION_INTERVAL, SAVE_ANIMATION, FRAME_SKIP
-
 
 class Plotter:
     def __init__(self, mode):
@@ -53,7 +51,7 @@ class Plotter:
             plt.xlabel("Number of steps")
             plt.show()
 
-    def animate(self, turmite, n_steps):
+    def animate(self, turmite, n_steps, animation_interval, save_animation):
         fig = plt.figure()
 
         im = plt.imshow(
@@ -78,7 +76,11 @@ class Plotter:
         )
         plt.axis("off")
 
-        def update(step, turmite, skip=FRAME_SKIP):
+        def update(
+            step,
+            turmite,
+            skip,
+        ):
             for _ in range(skip):
                 turmite.update()
             data = np.array(turmite.grid)
@@ -94,12 +96,12 @@ class Plotter:
                 turmite=turmite,
             ),
             frames=n_steps,
-            interval=ANIMATION_INTERVAL,
+            interval=animation_interval,
             blit=True,
             repeat=False,
         )
 
-        if SAVE_ANIMATION:
+        if save_animation:
             anim.save(
                 "example.mp4",
                 writer="ffmpeg",
