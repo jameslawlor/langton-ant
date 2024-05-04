@@ -7,8 +7,6 @@ def main():
     config = Config()
     config.load()
 
-    print(config)
-
     if config.ruleset == "classic":
         turmite = ClassicTurmite()
     elif config.ruleset == "stateful":
