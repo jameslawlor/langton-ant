@@ -3,13 +3,14 @@ from matplotlib.animation import FuncAnimation
 from functools import partial
 import numpy as np
 
-from pyturmite.constants import ANIMATION_INTERVAL, SAVE_ANIMATION, FRAME_SKIP
-
 
 class Plotter:
-    def __init__(self, mode):
+    def __init__(self, mode, animation_interval, save_animation, frame_skip):
         self.turmite = None
         self.mode = mode
+        self.animation_interval = animation_interval
+        self.save_animation = save_animation
+        self.frame_skip = frame_skip
         self.plot = self.get_plotting_function()
 
     def get_plotting_function(self):
@@ -78,13 +79,16 @@ class Plotter:
         )
         plt.axis("off")
 
-        def update(step, turmite, skip=FRAME_SKIP):
-            for _ in range(skip):
+        def update(
+            step,
+            turmite,
+        ):
+            for _ in range(self.frame_skip):
                 turmite.update()
             data = np.array(turmite.grid)
             data[turmite.x][turmite.y] = turmite.n_colours + 1
             im.set_data(data)
-            frame_num.set_text(f"Step: {step*skip:,}")
+            frame_num.set_text(f"Step: {step*self.frame_skip:,}")
             return [im, frame_num]
 
         anim = FuncAnimation(  # noqa: F841
@@ -94,12 +98,12 @@ class Plotter:
                 turmite=turmite,
             ),
             frames=n_steps,
-            interval=ANIMATION_INTERVAL,
+            interval=self.animation_interval,
             blit=True,
             repeat=False,
         )
 
-        if SAVE_ANIMATION:
+        if self.save_animation:
             anim.save(
                 "example.mp4",
                 writer="ffmpeg",
