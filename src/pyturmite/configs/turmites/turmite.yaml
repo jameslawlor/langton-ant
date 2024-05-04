@@ -1,6 +1,11 @@
-n_steps: 20000
+n_steps: 10000
 ruleset: "stateful"  # 'classic' or 'stateful'
-instructions: [                    # triplet notation (write colour, turn instruction, next state)
-    [(1, 'R', 0),(1, 'R', 1)],     # one state per row, one colour per tuple
-    [(0, 'N', 0),(0, 'N', 1)],
-  ]
+instructions:  # triplet notation (write colour, turn instruction, next state), 
+  [            # one state per row, one colour per tuple
+    [
+      [1, 'R', 0],[1, 'R', 1],
+    ],
+    [
+      [0, 'N', 0],[0, 'N', 1],
+    ],
+]
